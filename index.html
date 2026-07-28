@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lena Muhammed — Content Creator & Advertising Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink-50:#fff5fa;
+  --pink-100:#ffe4f1;
+  --pink-200:#ffc9e3;
+  --pink-300:#ffa3d0;
+  --pink-400:#ff6fb5;
+  --pink-500:#ff2e93;
+  --pink-600:#e6007e;
+  --plum:#3d0022;
+  --ink:#2a0016;
+  --muted:#7a5468;
+  --body:#6b4257;
+  --lilac:#c77dff;
+  --violet:#7b2cbf;
+  --peach:#ffb37b;
+  --cream:#fffaf7;
+  --shadow:0 18px 50px rgba(255,46,147,.18);
+  --shadow-lg:0 30px 70px rgba(255,46,147,.28);
+  --radius:28px;
+  --ease:cubic-bezier(.34,1.56,.64,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Outfit',system-ui,sans-serif;
+  background:var(--cream);color:var(--ink);
+  overflow-x:hidden;line-height:1.6;
+}
+::selection{background:var(--pink-500);color:#fff}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* scrollbar */
+::-webkit-scrollbar{width:11px}
+::-webkit-scrollbar-track{background:var(--pink-50)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--pink-400),var(--lilac));border-radius:100px;border:2px solid var(--pink-50)}
+
+/* ---------- scroll progress ---------- */
+#progress{
+  position:fixed;top:0;left:0;height:4px;width:0%;
+  background:linear-gradient(90deg,var(--pink-300),var(--pink-500),var(--lilac));
+  z-index:999;transition:width .1s linear;
+}
+
+/* ---------- background blobs ---------- */
+.blobs{position:fixed;inset:0;z-index:-2;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(75px);opacity:.45}
+.blob:nth-child(1){width:430px;height:430px;background:var(--pink-300);top:-110px;left:-90px;animation:float1 18s ease-in-out infinite}
+.blob:nth-child(2){width:370px;height:370px;background:var(--lilac);top:38%;right:-130px;animation:float2 23s ease-in-out infinite}
+.blob:nth-child(3){width:310px;height:310px;background:var(--peach);bottom:-90px;left:28%;animation:float3 20s ease-in-out infinite}
+@keyframes float1{50%{transform:translate(120px,90px) scale(1.15)}}
+@keyframes float2{50%{transform:translate(-100px,-70px) scale(1.2)}}
+@keyframes float3{50%{transform:translate(60px,-100px) scale(1.1)}}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%);
+  display:flex;gap:5px;padding:8px;z-index:100;
+  background:rgba(255,255,255,.72);backdrop-filter:blur(20px);
+  border:1px solid var(--pink-200);border-radius:100px;
+  box-shadow:0 10px 30px rgba(255,46,147,.14);
+  max-width:calc(100% - 20px);overflow-x:auto;scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none}
+nav a{
+  padding:9px 16px;border-radius:100px;text-decoration:none;
+  color:var(--plum);font-weight:600;font-size:.84rem;white-space:nowrap;
+  transition:.28s cubic-bezier(.4,0,.2,1);
+}
+nav a:hover{background:var(--pink-100);transform:translateY(-2px)}
+nav a.active{background:linear-gradient(135deg,var(--pink-500),var(--lilac));color:#fff;box-shadow:0 6px 18px rgba(255,46,147,.35)}
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:100vh;display:grid;grid-template-columns:1.15fr .85fr;
+  align-items:center;gap:50px;padding:130px 7vw 70px;
+}
+.kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--pink-100);color:var(--pink-600);
+  padding:8px 18px;border-radius:100px;font-weight:600;
+  font-size:.8rem;letter-spacing:.07em;text-transform:uppercase;
+  border:1px solid var(--pink-200);margin-bottom:22px;
+}
+.kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--pink-500);animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.3;transform:scale(1.6)}}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,7.5vw,5.6rem);
+  line-height:.98;font-weight:900;letter-spacing:-.02em;margin-bottom:10px;
+}
+.grad{
+  background:linear-gradient(115deg,var(--pink-500),var(--lilac) 55%,var(--peach));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:200% auto;animation:shimmer 5s linear infinite;
+}
+@keyframes shimmer{to{background-position:200% center}}
+
+.subtitle{font-size:clamp(1.05rem,2.1vw,1.35rem);font-weight:700;color:var(--violet);margin-bottom:6px}
+.roles{font-size:clamp(1rem,2vw,1.25rem);font-weight:600;color:var(--pink-600);min-height:1.8em;margin-bottom:16px}
+.typed::after{content:'|';animation:caret .8s steps(1) infinite;color:var(--lilac)}
+@keyframes caret{50%{opacity:0}}
+
+.tagline{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(1.3rem,3vw,1.9rem);color:var(--plum);margin-bottom:26px;font-weight:700;
+}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.btn{
+  padding:14px 30px;border-radius:100px;text-decoration:none;
+  font-weight:700;font-size:.95rem;display:inline-flex;align-items:center;gap:9px;
+  transition:.3s var(--ease);border:2px solid transparent;cursor:pointer;
+}
+.btn-primary{background:linear-gradient(135deg,var(--pink-500),var(--lilac));color:#fff;box-shadow:var(--shadow)}
+.btn-primary:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 24px 55px rgba(255,46,147,.36)}
+.btn-ghost{background:#fff;color:var(--pink-600);border-color:var(--pink-200)}
+.btn-ghost:hover{transform:translateY(-4px);border-color:var(--pink-400);background:var(--pink-50)}
+
+.hero-visual{position:relative;display:flex;justify-content:center}
+.photo-frame{
+  position:relative;width:min(100%,400px);aspect-ratio:4/5;
+  border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow-lg);border:6px solid #fff;
+  animation:bob 6s ease-in-out infinite;
+}
+@keyframes bob{50%{transform:translateY(-16px) rotate(-1deg)}}
+.photo-frame img{width:100%;height:100%;object-fit:cover}
+.sticker{
+  position:absolute;background:#fff;border-radius:18px;padding:11px 17px;
+  font-weight:700;font-size:.8rem;box-shadow:0 12px 30px rgba(255,46,147,.24);
+  border:2px solid var(--pink-200);color:var(--plum);
+}
+.sticker.s1{top:5%;left:-18px;animation:bob 5s ease-in-out infinite .3s}
+.sticker.s2{bottom:18%;right:-22px;animation:bob 5.5s ease-in-out infinite .8s}
+.sticker.s3{bottom:-14px;left:10%;animation:bob 6.5s ease-in-out infinite .5s}
+
+/* ---------- marquee ---------- */
+.marquee{
+  background:linear-gradient(90deg,var(--pink-500),var(--lilac),var(--pink-500));
+  padding:16px 0;overflow:hidden;transform:rotate(-1.4deg);margin:40px 0 90px;
+}
+.marquee-track{display:flex;gap:44px;width:max-content;animation:scroll 28s linear infinite}
+.marquee span{color:#fff;font-weight:800;font-size:1.1rem;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section{padding:80px 7vw;position:relative}
+.sec-head{margin-bottom:52px;text-align:center}
+.sec-head .tag{
+  display:inline-block;background:var(--pink-100);color:var(--pink-600);
+  padding:6px 16px;border-radius:100px;font-size:.76rem;font-weight:700;
+  letter-spacing:.11em;text-transform:uppercase;margin-bottom:14px;
+}
+.sec-head h2{
+  font-family:'Playfair Display',serif;font-size:clamp(2.1rem,5vw,3.4rem);
+  font-weight:900;line-height:1.1;color:var(--plum);
+}
+.sec-head h2 em{font-style:italic;background:linear-gradient(115deg,var(--pink-500),var(--lilac));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec-head p{color:var(--muted);max-width:640px;margin:14px auto 0}
+
+.card{
+  background:#fff;border-radius:var(--radius);padding:36px;
+  border:1px solid var(--pink-100);box-shadow:0 12px 40px rgba(255,46,147,.09);
+  transition:.35s var(--ease);
+}
+.card:hover{transform:translateY(-8px);box-shadow:0 26px 60px rgba(255,46,147,.2);border-color:var(--pink-200)}
+.card h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--plum);margin-bottom:14px}
+.card p{color:var(--body);margin-bottom:14px}
+.card p:last-child{margin-bottom:0}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:34px;align-items:start}
+.stat-stack{display:grid;gap:18px}
+.stat{
+  background:linear-gradient(135deg,var(--pink-500),var(--lilac));
+  color:#fff;border-radius:24px;padding:26px 28px;
+  box-shadow:var(--shadow);transition:.35s var(--ease);
+}
+.stat:nth-child(2){background:linear-gradient(135deg,var(--lilac),var(--peach))}
+.stat:nth-child(3){background:linear-gradient(135deg,var(--peach),var(--pink-400))}
+.stat:hover{transform:translateY(-6px) rotate(-1.2deg)}
+.stat .num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;line-height:1}
+.stat .lbl{font-size:.9rem;opacity:.95;margin-top:4px}
+
+/* ---------- skills ---------- */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:24px}
+.skill{
+  background:#fff;border-radius:24px;padding:32px 28px;
+  border:1px solid var(--pink-100);position:relative;overflow:hidden;
+  transition:.35s var(--ease);
+}
+.skill::before{content:'';position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--pink-500),var(--lilac))}
+.skill:nth-child(2)::before{background:linear-gradient(90deg,var(--lilac),var(--peach))}
+.skill:nth-child(3)::before{background:linear-gradient(90deg,var(--peach),var(--pink-400))}
+.skill:nth-child(4)::before{background:linear-gradient(90deg,var(--pink-400),var(--violet))}
+.skill:nth-child(5)::before{background:linear-gradient(90deg,var(--violet),var(--pink-500))}
+.skill:hover{transform:translateY(-8px);box-shadow:0 24px 55px rgba(255,46,147,.18)}
+.skill .icon{font-size:2.1rem;margin-bottom:12px;display:block}
+.skill h4{font-size:1.12rem;color:var(--plum);margin-bottom:8px;font-weight:700}
+.skill p{font-size:.93rem;color:var(--muted)}
+
+/* ---------- projects ---------- */
+.proj-list{display:grid;gap:34px}
+.proj{
+  background:#fff;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--pink-100);box-shadow:0 12px 40px rgba(255,46,147,.09);
+  display:grid;grid-template-columns:.85fr 1.15fr;
+  transition:.4s var(--ease);
+}
+.proj:hover{transform:translateY(-10px);box-shadow:0 32px 70px rgba(255,46,147,.22);border-color:var(--pink-200)}
+.proj-visual{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  padding:44px 34px;min-height:280px;
+  background:linear-gradient(135deg,var(--pink-100),#f3e4ff);
+}
+.proj:nth-child(2) .proj-visual{background:linear-gradient(135deg,#ffe9d6,var(--pink-100))}
+.proj:nth-child(3) .proj-visual{background:linear-gradient(135deg,#f3e4ff,#ffe9d6)}
+.proj:nth-child(4) .proj-visual{background:linear-gradient(135deg,var(--pink-100),#ffe9d6)}
+.proj:nth-child(5) .proj-visual{background:linear-gradient(135deg,#e4f7ff,var(--pink-100))}
+.proj-visual .num{
+  position:absolute;top:18px;left:22px;
+  font-family:'Playfair Display',serif;font-size:4.4rem;font-weight:900;
+  color:rgba(255,46,147,.16);line-height:1;
+}
+.proj-logo{
+  width:min(100%,200px);background:#fff;border-radius:24px;padding:18px;
+  box-shadow:0 16px 40px rgba(255,46,147,.16);transition:.4s var(--ease);
+  position:relative;z-index:1;border:2px solid #fff;
+}
+.proj:hover .proj-logo{transform:scale(1.06) rotate(-2deg);box-shadow:0 24px 55px rgba(255,46,147,.26)}
+.proj-emoji{font-size:5rem;filter:drop-shadow(0 12px 24px rgba(255,46,147,.28));transition:.4s var(--ease)}
+.proj:hover .proj-emoji{transform:scale(1.12) rotate(-5deg)}
+
+/* ---------- TV modal ---------- */
+.tv-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(42,0,22,.72);backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;padding:26px;
+  opacity:0;pointer-events:none;transition:opacity .35s ease;
+}
+.tv-overlay.open{opacity:1;pointer-events:auto}
+
+.tv{
+  width:min(100%,880px);transform:scale(.9) translateY(20px);
+  transition:transform .45s var(--ease);
+}
+.tv-overlay.open .tv{transform:none}
+
+/* the TV body */
+.tv-set{
+  background:linear-gradient(160deg,#ff8ec4,var(--pink-500) 45%,var(--violet));
+  border-radius:30px;padding:20px 20px 16px;
+  box-shadow:0 40px 90px rgba(0,0,0,.45), inset 0 2px 0 rgba(255,255,255,.4);
+  position:relative;
+}
+/* screen */
+.tv-screen{
+  position:relative;width:100%;aspect-ratio:16/9;
+  background:#12000a;border-radius:18px;overflow:hidden;
+  border:5px solid rgba(0,0,0,.35);
+  box-shadow:inset 0 0 60px rgba(0,0,0,.7);
+}
+.tv-screen.audio{aspect-ratio:16/9}
+.tv-screen iframe{width:100%;height:100%;border:0;display:block}
+/* glass glare */
+.tv-screen::after{
+  content:'';position:absolute;inset:0;pointer-events:none;border-radius:14px;
+  background:linear-gradient(115deg,rgba(255,255,255,.16) 0%,transparent 42%);
+}
+/* speaker + knobs row */
+.tv-panel{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:14px;padding:0 6px}
+.tv-brand{
+  font-family:'Playfair Display',serif;font-style:italic;font-weight:900;
+  color:#fff;font-size:1rem;text-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+.tv-knobs{display:flex;gap:9px;align-items:center}
+.knob{
+  width:16px;height:16px;border-radius:50%;
+  background:radial-gradient(circle at 32% 30%,#fff,rgba(255,255,255,.35));
+  box-shadow:0 2px 6px rgba(0,0,0,.35);
+}
+.knob.led{background:#7bffd4;box-shadow:0 0 12px #7bffd4;animation:pulse 1.8s infinite}
+/* stand */
+.tv-stand{width:120px;height:14px;margin:0 auto;background:linear-gradient(180deg,var(--violet),#4a1670);border-radius:0 0 12px 12px}
+.tv-foot{width:210px;height:12px;margin:0 auto;background:linear-gradient(180deg,#4a1670,#2d0d45);border-radius:100px;box-shadow:0 16px 34px rgba(0,0,0,.4)}
+
+.tv-caption{text-align:center;color:#fff;margin-top:20px}
+.tv-caption h4{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900}
+.tv-caption p{font-size:.86rem;opacity:.78;margin-top:3px}
+
+.tv-close{
+  position:absolute;top:-16px;right:-16px;width:46px;height:46px;
+  border-radius:50%;border:3px solid var(--pink-200);background:#fff;
+  color:var(--pink-600);font-size:1.35rem;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 26px rgba(0,0,0,.32);transition:.3s var(--ease);
+}
+.tv-close:hover{transform:rotate(90deg) scale(1.1);background:var(--pink-500);color:#fff;border-color:#fff}
+
+@media(max-width:560px){
+  .tv-set{padding:13px 13px 11px;border-radius:22px}
+  .tv-close{top:-12px;right:-6px;width:40px;height:40px}
+  .tv-caption h4{font-size:1.05rem}
+}
+
+.proj-body{padding:38px 36px;display:flex;flex-direction:column;justify-content:center}
+.proj-kicker{
+  font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--pink-600);margin-bottom:10px;
+}
+.proj-body h3{font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--plum);margin-bottom:12px;line-height:1.15}
+.role-label{
+  display:flex;align-items:center;gap:8px;
+  font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--violet);margin-bottom:9px;
+}
+.role-label::after{
+  content:'';flex:1;height:1.5px;border-radius:2px;
+  background:linear-gradient(90deg,var(--pink-200),transparent);
+}
+.role-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.role{
+  font-size:.79rem;font-weight:700;padding:6px 14px;border-radius:100px;
+  background:var(--pink-50);color:var(--pink-600);border:1.5px solid var(--pink-200);
+  transition:.3s var(--ease);
+}
+.role:hover{background:linear-gradient(135deg,var(--pink-500),var(--lilac));color:#fff;border-color:transparent;transform:translateY(-3px)}
+/* format tag (not a role) */
+.role.fmt{background:#f6ecff;color:var(--violet);border-color:var(--lilac)}
+.role.fmt:hover{background:linear-gradient(135deg,var(--violet),var(--lilac));color:#fff}
+.proj-body p{color:var(--body);font-size:.97rem;margin-bottom:22px}
+.watch-row{display:flex;flex-wrap:wrap;gap:11px}
+.watch{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 24px;border-radius:100px;text-decoration:none;
+  font-weight:700;font-size:.88rem;
+  background:linear-gradient(135deg,var(--pink-500),var(--lilac));color:#fff;
+  box-shadow:0 10px 26px rgba(255,46,147,.28);transition:.3s var(--ease);
+}
+.watch:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 18px 40px rgba(255,46,147,.4)}
+.watch.alt{background:#fff;color:var(--pink-600);border:2px solid var(--pink-200);box-shadow:none}
+.watch.alt:hover{background:var(--pink-50);border-color:var(--pink-400)}
+
+/* ---------- leadership ---------- */
+.lead-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.lead{
+  background:linear-gradient(135deg,var(--pink-500),var(--lilac));color:#fff;
+  border-radius:26px;padding:34px 30px;box-shadow:var(--shadow);
+  transition:.35s var(--ease);position:relative;overflow:hidden;
+}
+.lead:nth-child(2){background:linear-gradient(135deg,var(--lilac),var(--peach))}
+.lead:nth-child(3){background:linear-gradient(135deg,var(--peach),var(--pink-400))}
+.lead::after{content:'';position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.12);top:-70px;right:-50px}
+.lead:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:var(--shadow-lg)}
+.lead .icon{font-size:2.2rem;display:block;margin-bottom:12px;position:relative}
+.lead h4{font-size:1.15rem;margin-bottom:8px;font-weight:800;position:relative}
+.lead p{font-size:.94rem;opacity:.95;position:relative}
+
+/* ---------- contact ---------- */
+.contact-wrap{
+  background:linear-gradient(135deg,var(--pink-500),var(--lilac) 60%,var(--peach));
+  border-radius:44px;padding:72px 44px;text-align:center;color:#fff;
+  box-shadow:0 30px 80px rgba(255,46,147,.32);position:relative;overflow:hidden;
+}
+.contact-wrap::after{content:'';position:absolute;width:430px;height:430px;border-radius:50%;background:rgba(255,255,255,.12);top:-170px;right:-130px}
+.contact-wrap::before{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.1);bottom:-140px;left:-90px}
+.contact-wrap h2{font-family:'Playfair Display',serif;font-size:clamp(2.1rem,5vw,3.3rem);font-weight:900;margin-bottom:14px;position:relative}
+.contact-wrap p{opacity:.95;max-width:540px;margin:0 auto 34px;position:relative;font-size:1.05rem}
+.contact-links{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;position:relative}
+.c-link{
+  background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.42);
+  color:#fff;padding:14px 26px;border-radius:100px;text-decoration:none;
+  font-weight:700;font-size:.92rem;backdrop-filter:blur(10px);
+  transition:.3s var(--ease);display:inline-flex;align-items:center;gap:8px;
+}
+.c-link:hover{background:#fff;color:var(--pink-600);transform:translateY(-4px) scale(1.04)}
+
+footer{text-align:center;padding:46px 7vw 40px;color:#a87a92;font-size:.9rem}
+footer .heart{color:var(--pink-500)}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(38px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:980px){
+  .proj{grid-template-columns:1fr}
+  .proj-visual{min-height:220px}
+  .proj-body{padding:32px 28px}
+}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;text-align:center;padding-top:118px}
+  .cta-row{justify-content:center}
+  .about-grid{grid-template-columns:1fr}
+  .sticker.s1{left:-6px}.sticker.s2{right:-6px}
+}
+@media(max-width:560px){
+  section{padding:60px 6vw}
+  .card{padding:26px}
+  .contact-wrap{padding:52px 24px;border-radius:32px}
+  .proj-visual .num{font-size:3.2rem}
+  .watch{width:100%;justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="blobs"><div class="blob"></div><div class="blob"></div><div class="blob"></div></div>
+
+<nav>
+  <a href="#home" class="active">Home</a>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#work">Work</a>
+  <a href="#leadership">Leadership</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="home">
+  <div class="hero-text">
+    <div class="kicker"><span class="dot"></span> Available for projects</div>
+    <h1>Lena <span class="grad">Muhammed</span></h1>
+    <div class="subtitle">Content Creator &amp; Advertising Specialist</div>
+    <div class="roles"><span class="typed"></span></div>
+    <p class="tagline">“Bringing ideas to life”</p>
+    <div class="cta-row">
+      <a href="#work" class="btn btn-primary">See my work ✦</a>
+      <a href="#contact" class="btn btn-ghost">Let's talk</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="photo-frame">
+      <img src="assets/WhatsApp Image 2026-07-28 at 19.05.49.jpeg" alt="Lena Muhammed — creative portrait" />
+    </div>
+    <div class="sticker s1">🎙️ Voiceover</div>
+    <div class="sticker s2">🏆 1st Place</div>
+    <div class="sticker s3">🎬 Director</div>
+  </div>
+</header>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Campaign Strategy ✦</span><span>Videography ✦</span><span>Video Editing ✦</span>
+    <span>Voiceover ✦</span><span>Scriptwriting ✦</span><span>Copywriting ✦</span>
+    <span>Audio Directing ✦</span><span>Creative Ideation ✦</span>
+    <span>Campaign Strategy ✦</span><span>Videography ✦</span><span>Video Editing ✦</span>
+    <span>Voiceover ✦</span><span>Scriptwriting ✦</span><span>Copywriting ✦</span>
+    <span>Audio Directing ✦</span><span>Creative Ideation ✦</span>
+  </div>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="sec-head reveal">
+    <span class="tag">About me</span>
+    <h2>Hi, I'm <em>Lena</em> ✿</h2>
+  </div>
+
+  <div class="about-grid">
+    <div class="card reveal">
+      <h3>Nice to meet you</h3>
+      <p>
+        Senior Advertising student at the Faculty of Mass Communication, <strong>Ain Shams University</strong>.
+        Highly social, active, and continuously driven to learn something new every day.
+      </p>
+      <p>
+        Proven team leader with a track record of guiding teams to <strong>1st place achievements</strong> —
+        from raw concept ideation all the way through to the final cut.
+      </p>
+    </div>
+
+    <div class="stat-stack">
+      <div class="stat reveal"><div class="num">1st</div><div class="lbl">Place across university campaign projects</div></div>
+      <div class="stat reveal"><div class="num">4+</div><div class="lbl">Full campaigns directed &amp; edited</div></div>
+      <div class="stat reveal"><div class="num">360°</div><div class="lbl">Concept · Shoot · Voice · Edit</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section id="skills">
+  <div class="sec-head reveal">
+    <span class="tag">What I do</span>
+    <h2>Skills &amp; <em>Superpowers</em></h2>
+    <p>From the first spark of an idea to the final export — I handle the whole pipeline.</p>
+  </div>
+
+  <div class="skill-grid">
+    <div class="skill reveal">
+      <span class="icon">💡</span>
+      <h4>Creative Ideation &amp; Campaign Strategy</h4>
+      <p>Building the big idea and the strategy that carries it across every channel.</p>
+    </div>
+    <div class="skill reveal">
+      <span class="icon">🎥</span>
+      <h4>Videography &amp; Content Shooting</h4>
+      <p>Behind the camera — framing, lighting and capturing the shots the story needs.</p>
+    </div>
+    <div class="skill reveal">
+      <span class="icon">✂️</span>
+      <h4>Video Editing &amp; Post-Production</h4>
+      <p>Cutting, pacing, colour and sound until the footage actually feels like something.</p>
+    </div>
+    <div class="skill reveal">
+      <span class="icon">🎙️</span>
+      <h4>Voiceover &amp; Audio Directing</h4>
+      <p>On the mic and directing voice talent — plus audio editing and mixing.</p>
+    </div>
+    <div class="skill reveal">
+      <span class="icon">✍️</span>
+      <h4>Scriptwriting &amp; Copywriting</h4>
+      <p>Words that sell: scripts for screen and radio, and copy that lands.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORK ================= -->
+<section id="work">
+  <div class="sec-head reveal">
+    <span class="tag">Portfolio</span>
+    <h2>Selected <em>Work</em></h2>
+    <p>Commercials, radio spots, PSAs and reels — click through to watch.</p>
+  </div>
+
+  <div class="proj-list">
+
+    <!-- Project 01 — TV -->
+    <article class="proj reveal">
+      <div class="proj-visual">
+        <span class="num">01</span>
+        <img class="proj-logo" src="assets/m7aly.jpg" alt="محلي — Mahally app logo" />
+      </div>
+      <div class="proj-body">
+        <div class="proj-kicker">Project 01 · B2B Video Commercial</div>
+        <h3>Mahally App Campaign</h3>
+        <div class="role-label">My Role</div>
+        <div class="role-row">
+          <span class="role">Director</span>
+          <span class="role">Videographer</span>
+        </div>
+        <p>
+          A targeted B2B commercial helping small local retailers transition into the digital market.
+        </p>
+        <div class="watch-row">
+          <a class="watch" href="https://drive.google.com/file/d/1TIxn-8G0-Cps1XVux16lg2AHmc7ntj3S/view" data-tv="1TIxn-8G0-Cps1XVux16lg2AHmc7ntj3S" data-title="Mahally App Campaign" data-sub="B2B Video Commercial · Director &amp; Videographer" data-audio="0">▶ Watch the ad</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 01 — Radio -->
+    <article class="proj reveal">
+      <div class="proj-visual">
+        <span class="num">01</span>
+        <img class="proj-logo" src="assets/m7aly.jpg" alt="محلي — Mahally app logo" />
+      </div>
+      <div class="proj-body">
+        <div class="proj-kicker">Project 01 · Multi-Spot Radio Campaign</div>
+        <h3>Mahally Radio Series <span style="font-size:.7em;color:var(--muted)">(2 Spots)</span></h3>
+        <div class="role-label">My Role</div>
+        <div class="role-row">
+          <span class="role">Scriptwriter</span>
+          <span class="role">Audio / Voice Director</span>
+          <span class="role">Sound Mixing Specialist</span>
+        </div>
+        <p>
+          Directed voice talent and executed audio editing and mixing for a two-part commercial radio campaign.
+        </p>
+        <div class="watch-row">
+          <a class="watch" href="https://drive.google.com/file/d/1B0mgi17vt2K9qCwVhbACd3zl0UQHr7C-/view" data-tv="1B0mgi17vt2K9qCwVhbACd3zl0UQHr7C-" data-title="Mahally Radio — Spot 01" data-sub="Radio Campaign · Scriptwriter &amp; Audio Director" data-audio="1">🔊 Spot 01</a>
+          <a class="watch alt" href="https://drive.google.com/file/d/1--DCvVG5L9bb1Gruq3eCJudfywPEIki4/view" data-tv="1--DCvVG5L9bb1Gruq3eCJudfywPEIki4" data-title="Mahally Radio — Spot 02" data-sub="Radio Campaign · Scriptwriter &amp; Audio Director" data-audio="1">🔊 Spot 02</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 02 -->
+    <article class="proj reveal">
+      <div class="proj-visual">
+        <span class="num">02</span>
+        <img class="proj-logo" src="assets/wad3_tayaran.jpg" alt="وضع طيران — Airplane Mode campaign logo" />
+      </div>
+      <div class="proj-body">
+        <div class="proj-kicker">Project 02 · Social Awareness PSA</div>
+        <h3>Parent-Child Communication <span style="font-size:.68em;color:var(--muted)">وضع طيران</span></h3>
+        <div class="role-label">My Role</div>
+        <div class="role-row">
+          <span class="role">Videographer</span>
+          <span class="role">Voiceover Artist</span>
+        </div>
+        <p>
+          A social awareness campaign on the distance that grows when parents and children stop really talking.
+        </p>
+        <div class="watch-row">
+          <a class="watch" href="https://drive.google.com/file/d/1iLdIaMNmAcmN-c4SumuXrnhO2vmes9mN/view" data-tv="1iLdIaMNmAcmN-c4SumuXrnhO2vmes9mN" data-title="Parent-Child Communication" data-sub="Social Awareness PSA · Videographer &amp; Voiceover" data-audio="0">▶ Watch the PSA</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 03 -->
+    <article class="proj reveal">
+      <div class="proj-visual">
+        <span class="num">03</span>
+        <span class="proj-emoji">📵</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-kicker">Project 03 · Concept Video Campaign</div>
+        <h3>No Filter <span style="font-size:.75em;color:var(--muted)">بدون فيلتر</span></h3>
+        <div class="role-label">My Role</div>
+        <div class="role-row">
+          <span class="role">Director</span>
+          <span class="role">Video Editor</span>
+          <span class="role">Co-Videographer</span>
+        </div>
+        <p>
+          Addressing social media perfectionism by contrasting digital filters with raw, authentic real-life moments.
+        </p>
+        <div class="watch-row">
+          <a class="watch" href="https://drive.google.com/file/d/1B1_pFiyk1VRfQBQeyFP3yyFKQsqbLcAl/view" data-tv="1B1_pFiyk1VRfQBQeyFP3yyFKQsqbLcAl" data-title="No Filter — بدون فيلتر" data-sub="Concept Video · Director &amp; Editor" data-audio="0">▶ Watch the film</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 04 -->
+    <article class="proj reveal">
+      <div class="proj-visual">
+        <span class="num">04</span>
+        <span class="proj-emoji">⚽</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-kicker">Project 04 · Event Coverage &amp; Reels</div>
+        <h3>Sports Event Coverage</h3>
+        <div class="role-label">My Role &amp; Format</div>
+        <div class="role-row">
+          <span class="role">Videography</span>
+          <span class="role">Fast-Paced Video Editing</span>
+          <span class="role fmt">Vertical Short-Form · Reels / TikTok</span>
+        </div>
+        <p>
+          Vertical short-form coverage built for social — quick cuts, high energy, made to stop the scroll.
+        </p>
+        <div class="watch-row">
+          <a class="watch" href="https://drive.google.com/file/d/19mwCKkdfTpWFLFncWEY_YciZMCLIG6G2/view" data-tv="19mwCKkdfTpWFLFncWEY_YciZMCLIG6G2" data-title="Sports Event Coverage" data-sub="Event Reel · Videography &amp; Fast-Paced Editing" data-audio="0">▶ Watch the reel</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= LEADERSHIP ================= -->
+<section id="leadership">
+  <div class="sec-head reveal">
+    <span class="tag">Leadership</span>
+    <h2>Leadership &amp; <em>Highlights</em></h2>
+  </div>
+
+  <div class="lead-grid">
+    <div class="lead reveal">
+      <span class="icon">🏆</span>
+      <h4>Consistent 1st Place</h4>
+      <p>Consistently achieved 1st place across university campaign projects.</p>
+    </div>
+    <div class="lead reveal">
+      <span class="icon">🎬</span>
+      <h4>Creative Team Lead</h4>
+      <p>Led creative teams from raw concept ideation all the way to final video editing.</p>
+    </div>
+    <div class="lead reveal">
+      <span class="icon">🌐</span>
+      <h4>Strong Network</h4>
+      <p>Strong active presence across academic and media networks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="contact-wrap reveal">
+    <h2>Let's work together!</h2>
+    <p>Ready to bring fresh, creative content to your brand.</p>
+    <div class="contact-links">
+      <a class="c-link" href="tel:+201033762620">📞 0103 376 2620</a>
+      <a class="c-link" href="mailto:lenaamuhamme@icloud.com">✉️ lenaamuhamme@icloud.com</a>
+      <a class="c-link" href="mailto:Lenaamuhammed@gmail.com">✉️ Gmail</a>
+      <a class="c-link" href="https://www.instagram.com/lena.muhammedd" target="_blank" rel="noopener">📸 @lena.muhammedd</a>
+      <a class="c-link" href="https://www.linkedin.com/in/lenaa-muhammed-a95298307" target="_blank" rel="noopener">in LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TV MODAL ================= -->
+<div class="tv-overlay" id="tvOverlay">
+  <div class="tv">
+    <div class="tv-set">
+      <button class="tv-close" id="tvClose" aria-label="Close">&times;</button>
+      <div class="tv-screen" id="tvScreen"></div>
+      <div class="tv-panel">
+        <span class="tv-brand">Lena TV</span>
+        <div class="tv-knobs">
+          <span class="knob led"></span><span class="knob"></span><span class="knob"></span>
+        </div>
+      </div>
+    </div>
+    <div class="tv-stand"></div>
+    <div class="tv-foot"></div>
+    <div class="tv-caption">
+      <h4 id="tvTitle"></h4>
+      <p id="tvSub"></p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Made with <span class="heart">♥</span> in Cairo · Lena Muhammed © <span id="yr"></span>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// typing roles
+(function(){
+  const roles = ['Content Creator ✦','Advertising Specialist ✦','Director ✦','Voiceover Artist ✦','Video Editor ✦','Scriptwriter ✦'];
+  const el = document.querySelector('.typed');
+  let r = 0, c = 0, deleting = false;
+  (function tick(){
+    const word = roles[r];
+    el.textContent = deleting ? word.slice(0, --c) : word.slice(0, ++c);
+    let wait = deleting ? 45 : 85;
+    if(!deleting && c === word.length){ deleting = true; wait = 1600; }
+    else if(deleting && c === 0){ deleting = false; r = (r+1) % roles.length; wait = 300; }
+    setTimeout(tick, wait);
+  })();
+})();
+
+// scroll progress
+addEventListener('scroll', () => {
+  const h = document.documentElement;
+  document.getElementById('progress').style.width =
+    (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+}, {passive:true});
+
+// reveal on scroll
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i % 4) * 90 + 'ms';
+  io.observe(el);
+});
+
+// ---------- TV modal ----------
+(function(){
+  const overlay = document.getElementById('tvOverlay');
+  const screen  = document.getElementById('tvScreen');
+  const title   = document.getElementById('tvTitle');
+  const sub     = document.getElementById('tvSub');
+
+  function open(a){
+    const id = a.dataset.tv;
+    screen.classList.toggle('audio', a.dataset.audio === '1');
+    screen.innerHTML =
+      '<iframe src="https://drive.google.com/file/d/' + id + '/preview" ' +
+      'allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    title.textContent = a.dataset.title;
+    sub.innerHTML = a.dataset.sub;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { screen.innerHTML = ''; }, 350); // stop playback
+  }
+
+  document.querySelectorAll('.watch[data-tv]').forEach(a => {
+    a.addEventListener('click', e => { e.preventDefault(); open(a); });
+  });
+
+  document.getElementById('tvClose').addEventListener('click', close);
+  overlay.addEventListener('click', e => { if(e.target === overlay) close(); });
+  addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
+})();
+
+// active nav link
+const links = [...document.querySelectorAll('nav a')];
+const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+addEventListener('scroll', () => {
+  const y = scrollY + 160;
+  let current = secs[0];
+  secs.forEach(s => { if(s.offsetTop <= y) current = s; });
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
+}, {passive:true});
+</script>
+</body>
+</html>
